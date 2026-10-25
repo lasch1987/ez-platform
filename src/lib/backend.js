@@ -128,6 +128,17 @@ const viaSupabase = {
   },
 };
 
+// Mientras la propia app registra, inicia o cierra sesión, se ignora el aviso de cambio de sesión:
+// el registro ya maneja sus pantallas (por ejemplo "¡Todo listo!").
+let accionPropia = 0;
+for (const m of ["registrarTutor", "registrarDocente", "ingresar", "salir"]) {
+  const f = viaSupabase[m];
+  viaSupabase[m] = async (...args) => {
+    accionPropia++;
+    try { return await f(...args); } finally { setTimeout(() => { accionPropia--; }, 0); }
+  };
+}
+
 /* ---------------- Modo demo (navegador) ---------------- */
 
 const DB_KEY = "ez-demo-db";
@@ -210,6 +221,7 @@ export default backend;
 export function alCambiarSesion(cb) {
   if (!supabase) return () => {};
   const { data } = supabase.auth.onAuthStateChange((evento) => {
+    if (accionPropia) return;
     if (evento === "SIGNED_IN" || evento === "SIGNED_OUT") cb();
   });
   return () => data.subscription.unsubscribe();
