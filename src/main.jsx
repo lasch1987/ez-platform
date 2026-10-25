@@ -1,0 +1,20 @@
+import "./globals.js";
+import "./styles.css";
+import "./legacy/00-ds-bundle.js";
+import "./legacy/01-SwFx.jsx";
+import "./legacy/02-SwAudio.jsx";
+import "./legacy/03-SwShell.jsx";
+import "./legacy/04-SwCamino.jsx";
+import "./legacy/05-SwProgreso.jsx";
+import "./legacy/06-SwRepertorio.jsx";
+import "./legacy/07-SwCaja.jsx";
+import "./legacy/08-SwClases.jsx";
+import "./legacy/09-SwRudimentos.jsx";
+import "./legacy/10-SwDaw.jsx";
+import "./legacy/11-SwLibro.jsx";
+import "./legacy/12-SwOnboarding.jsx";
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.jsx";
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
